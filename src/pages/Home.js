@@ -17,8 +17,7 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
-export default class Main extends Component<Props> {
+export default class Main extends Component {
   static navigationOptions = {
     title: 'Home'
   }

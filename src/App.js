@@ -1,49 +1,34 @@
 import React from 'react';
-import { Button, View, Text } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation'; // Version can be specified in package.json
+import { Text, View, Image } from 'react-native';
+import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import Home from './pages/Home';
+import User from './pages/User';
+import IconHome from './img/home.png';
+import IconUser from './img/user.png';
 
-class HomeScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
-        <Button
-          title="Go to Details"
-          onPress={() => this.props.navigation.navigate('Details')}
-        />
-      </View>
-    );
-  }
+const tabIconList = {
+  'Home': IconHome,
+  'User': IconUser
 }
 
-class DetailsScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Details Screen</Text>
-      </View>
-    );
-  }
-}
-
-const RootStack = createStackNavigator(
+const TabNavigator = createBottomTabNavigator(
   {
-    Home: HomeScreen,
-    Details: DetailsScreen,
+    Home: Home,
+    User: User,
   },
   {
-    initialRouteName: 'Home',
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, horizontal, tintColor }) => {
+        const { routeName } = navigation.state;
+        // You can return any component that you like here!
+        return <Image source={tabIconList[routeName]} style={{width: 30, height: 30}}/>;
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: '#ff8300',
+      inactiveTintColor: 'gray',
+    },
   }
 );
 
-const AppContainer = createAppContainer(RootStack);
-
-
-type Props = {};
-export default class App extends React.Component<Props> {
-  render() {
-    return (
-      <AppContainer />
-    );
-  }
-}
+export default createAppContainer(TabNavigator);

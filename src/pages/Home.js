@@ -1,14 +1,7 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- * @lint-ignore-every XPLATJSCOPYRIGHT1
- */
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button} from 'react-native';
+import {APP_NAME} from '../config';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -19,12 +12,12 @@ const instructions = Platform.select({
 
 export default class Home extends Component {
   static navigationOptions = {
-    title: 'Home'
+    title: 'Home',
   }
   _gotoWeb = () => {
-    console.warn(this.props.navigation.push);
-    return;
-	  this.props.navigation.navigate('Web');
+    // console.warn(this.props.navigation.push);
+    // return;
+	  this.props.navigation.navigate('User');
   }
   render() {
     return (

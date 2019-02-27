@@ -17,9 +17,14 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-export default class Main extends Component {
+export default class Home extends Component {
   static navigationOptions = {
     title: 'Home'
+  }
+  _gotoWeb = () => {
+    console.warn(this.props.navigation.push);
+    return;
+	  this.props.navigation.navigate('Web');
   }
   render() {
     return (
@@ -29,7 +34,7 @@ export default class Main extends Component {
         <Text style={styles.instructions}>{instructions}</Text>
         <Button
           title="Go to User"
-          onPress={() => this.props.navigation.navigate('User')}
+          onPress={this._gotoWeb}
         />
       </View>
     );

@@ -18,7 +18,7 @@ export default class User extends Component {
 			user_info: {},
 		};
 
-		this.query();
+		try { this.query() } catch {}
 	}
 
 	async query() {

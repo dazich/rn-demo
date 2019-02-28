@@ -1,4 +1,8 @@
 const ENV = 'dev';
+const THEME = {
+	COLOR: '#abcedf',
+}; //
 export {
-    ENV,
+	THEME,
+	ENV,
 }

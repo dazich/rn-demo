@@ -9,7 +9,7 @@ export default class MyWeb extends Component {
 	render() {
 		return (
 			<WebView
-				source={{uri: 'https://www.baidu.com'}}
+				source={{uri: 'http://test-webapp.imcjbt.com/xxzs/order'}}
 			/>
 		);
 	}

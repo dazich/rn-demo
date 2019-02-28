@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		flexDirection: 'column',
 		height: 300,
-		backgroundColor: '#fddd03',
+		// backgroundColor: '#fddd03',
 	},
 	row: {
 		display: 'flex',

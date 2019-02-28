@@ -34,8 +34,8 @@ export default class User extends Component {
 		this.setState({ list, user_info });
 	}
 
-	_onPressItem = (url) => {
-		Linking.openURL(url).catch(err => Toast.fail(err));
+	_onPressItem = (uri) => {
+		this.props.navigation.push('Web', {uri});
 	}
 
 
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		flexDirection: 'column',
 		height: 300,
-		backgroundColor: '#fddd03',
+		// backgroundColor: '#fddd03',
 	},
 	row: {
 		display: 'flex',

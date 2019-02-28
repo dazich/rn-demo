@@ -57,8 +57,8 @@ const UserStack = createStackNavigator(
 const TabNavigator = createBottomTabNavigator(
 	{
 		Home: HomeStack,
-		User: UserStack,
 		Verify: VerifyStack,
+		User: UserStack,
 	},
 	{
 		defaultNavigationOptions: ({ navigation }) => ({

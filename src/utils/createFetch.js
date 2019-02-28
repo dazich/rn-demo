@@ -1,8 +1,7 @@
 import axios from 'axios';
 import queryString from 'query-string';
 import { login } from './util';
-import {DEV_API, API} from '../constants';
-import {ENV} from '../config';
+import {ENV, DEV_API, API} from '../config';
 
 const createFetch = axios.create();
 

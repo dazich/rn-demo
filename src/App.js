@@ -18,14 +18,6 @@ const tabIconList = {
 }
 
 const defaultNavigationOptions = {
-	tabBarVisible: ({ navigation }) => {
-		let tabBarVisible = true;
-		if (navigation.state.index > 0) {
-			tabBarVisible = false;
-		}
-		
-		return tabBarVisible ;
-	},
 	headerStyle: {
 		backgroundColor: THEME.COLOR,
 	},
@@ -60,7 +52,20 @@ const UserStack = createStackNavigator(
 		/* The header config is here */
 		defaultNavigationOptions
 	}
-)
+);
+
+HomeStack.navigationOptions =
+VerifyStack.navigationOptions =
+UserStack.navigationOptions = ({ navigation }) => {
+	let tabBarVisible = true;
+	if (navigation.state.index > 0) {
+		tabBarVisible = false;
+	}
+
+	return {
+		tabBarVisible,
+	};
+};
 
 const TabNavigator = createBottomTabNavigator(
 	{

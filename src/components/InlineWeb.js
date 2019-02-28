@@ -8,9 +8,9 @@ export default class MyWeb extends Component {
 			title: navigation.getParam('title', APP_NAME),
 		};
 	};
-	
+
 	onMessage = (msg) => {
-		console.warn('onMessage:', msg);
+		// window.ReactNativeWebView.postMessage(string)
 		this.props.navigation.setParams({title: msg})
 	}
 	
@@ -20,9 +20,12 @@ export default class MyWeb extends Component {
 		
 		return (
 			<WebView
+				onMessage={event => this.onMessage(event.nativeEvent.data)}
+				onError={error => console.log(error)}
+				cacheEnabled={false}
+				originWhitelist={['*']}
+				javaScriptEnabled={true}
 				source={{uri}}
-				// onMessage={this.onMessage}
-				// javaScriptEnabled={true}//指定WebView中是否启用JavaScript
 			/>
 		);
 	}

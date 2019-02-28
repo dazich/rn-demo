@@ -24,7 +24,6 @@ export default class User extends Component {
 	async query() {
 		const url = '/api/user/center';
 		const [err, res] = await to(createFetch(url).then(r => r.data));
-		console.warn(res)
 		if (err || +res.code !== 0) {
 			Toast.fail((err && err.message) || res.message || '网络异常');
 			return;
@@ -46,7 +45,7 @@ export default class User extends Component {
 				<View style={styles.header}>
 					<View style={styles.user_info}>
 						<View style={styles.portrait}>
-							<Image source={user_info.user_photo} alt="" />
+							<Image source={{uri: user_info.user_photo}} alt="" />
 						</View>
 						<Text
 							style={`${user_info.user_phone ? styles.user_phone : styles.login_btn}`}

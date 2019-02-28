@@ -1,40 +1,72 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
+import { Provider } from '@ant-design/react-native';
+import { createBottomTabNavigator, createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import { THEME } from './config';
 import Home from './pages/Home';
-import User from './pages/User';
 import Verify from './pages/Verify';
-import InlineWeb from './components/InlineWeb';
+import User from './pages/User';
+import Login from './pages/Login';
+import Web from './components/InlineWeb';
 
 import IconHome from './img/home.png';
 import IconUser from './img/user.png';
 
 const tabIconList = {
 	'Home': IconHome,
-	'Verify': IconHome,
 	'User': IconUser
 }
 
-const HomeStack = createStackNavigator({
-	Home: { screen: Home },
-	Web: { screen: InlineWeb },
-});
+const defaultNavigationOptions = {
+	tabBarVisible: ({ navigation }) => {
+		let tabBarVisible = true;
+		if (navigation.state.index > 0) {
+			tabBarVisible = false;
+		}
+		
+		return tabBarVisible ;
+	},
+	headerStyle: {
+		backgroundColor: THEME.COLOR,
+	},
+	headerTintColor: '#fff',
+	headerTitleStyle: {
+		fontWeight: 'bold',
+	},
+};
 
-const VerifyStack = createStackNavigator({
-	Verify: { screen: Verify },
-	Web: { screen: InlineWeb },
-});
+const HomeStack = createStackNavigator(
+	{Home,Web},
+	{
+		initialRouteName: 'Home',
+		/* The header config is here */
+		defaultNavigationOptions
+	}
+)
 
-const UserStack = createStackNavigator({
-	User: { screen: User },
-	Web: { screen: InlineWeb },
-});
+const VerifyStack = createStackNavigator(
+	{Verify,Web},
+	{
+		initialRouteName: 'Verify',
+		/* The header config is here */
+		defaultNavigationOptions
+	}
+)
+
+const UserStack = createStackNavigator(
+	{User,Web},
+	{
+		initialRouteName: 'User',
+		/* The header config is here */
+		defaultNavigationOptions
+	}
+)
 
 const TabNavigator = createBottomTabNavigator(
 	{
-		Home: { screen: HomeStack },
-		Verify: { screen: VerifyStack },
-		User: { screen: UserStack },
+		Home: HomeStack,
+		Verify: VerifyStack,
+		User: UserStack,
 	},
 	{
 		defaultNavigationOptions: ({ navigation }) => ({
@@ -45,11 +77,31 @@ const TabNavigator = createBottomTabNavigator(
 			},
 		}),
 		tabBarOptions: {
-			activeTintColor: '#ff8300',
+			activeTintColor: THEME.COLOR,
 			inactiveTintColor: 'gray',
 		},
 		initialRouteName: "Home"
 	}
 );
 
-export default createAppContainer(TabNavigator);
+const appNavigator = createSwitchNavigator(
+	{
+		Home: TabNavigator,
+		Login,
+	},
+	{
+		initialRouteName: 'Home',
+	}
+);
+
+const AppContainer = createAppContainer(appNavigator);
+
+export default class App extends React.Component {
+	render() {
+		return (
+			<Provider>
+				<AppContainer />
+			</Provider>
+		)
+	}
+}

@@ -8,7 +8,7 @@ import { createFetch, to, login } from '../utils';
 
 export default class Verify extends Component {
 	static navigationOptions = {
-		title: 'User'
+		title: 'Verify'
 	}
 
 	constructor(props) {
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		flexDirection: 'column',
 		height: 300,
-		backgroundColor: '#fddd03',
+		// backgroundColor: '#fddd03',
 	},
 	row: {
 		display: 'flex',

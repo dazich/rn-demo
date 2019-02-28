@@ -1,7 +1,10 @@
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button} from 'react-native';
-import {APP_NAME} from '../config';
+import {Platform, StyleSheet, Text, View} from 'react-native';
+import {
+	Toast,
+	Button
+} from '@ant-design/react-native';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -11,13 +14,16 @@ const instructions = Platform.select({
 });
 
 export default class Home extends Component {
-  static navigationOptions = {
-    title: 'Home',
-  }
+	static navigationOptions = ({ navigation }) => {
+		const { params } = navigation.state;
+		return {
+			title: params ? params.otherParam : 'Home',
+		};
+	};
+	
   _gotoWeb = () => {
-    // console.warn(this.props.navigation.push);
-    // return;
-	  this.props.navigation.navigate('User');
+  	console.warn(this.props.navigation.push)
+	  this.props.navigation.push('Login', {uri: 'https://webapp.imcjbt.com/user'});
   }
   render() {
     return (
@@ -26,9 +32,10 @@ export default class Home extends Component {
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
         <Button
+	        type="warning"
           title="Go to User"
           onPress={this._gotoWeb}
-        />
+        >Test</Button>
       </View>
     );
   }

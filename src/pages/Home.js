@@ -22,7 +22,8 @@ export default class Home extends Component {
 	};
 	
   _gotoWeb = () => {
-	  this.props.navigation.navigate('Web');
+  	console.warn(this.props.navigation.push)
+	  this.props.navigation.push('Login', {uri: 'https://webapp.imcjbt.com/user'});
   }
   render() {
     return (

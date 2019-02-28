@@ -18,6 +18,14 @@ const tabIconList = {
 }
 
 const defaultNavigationOptions = {
+	tabBarVisible: ({ navigation }) => {
+		let tabBarVisible = true;
+		if (navigation.state.index > 0) {
+			tabBarVisible = false;
+		}
+		
+		return tabBarVisible ;
+	},
 	headerStyle: {
 		backgroundColor: THEME.COLOR,
 	},
@@ -78,8 +86,8 @@ const TabNavigator = createBottomTabNavigator(
 
 const appNavigator = createSwitchNavigator(
 	{
-		Login,
 		Home: TabNavigator,
+		Login,
 	},
 	{
 		initialRouteName: 'Home',

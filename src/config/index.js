@@ -1,4 +1,5 @@
 const ENV = 'dev';
+const APP_NAME = '搞起来';
 const THEME = {
 	COLOR: '#abcedf',
 }; //
@@ -11,6 +12,7 @@ const API = 'http://test-api.imcjbt.com/';
 export {
 	THEME,
 	ENV,
+	APP_NAME,
 	DEV_API,
 	API,
 }

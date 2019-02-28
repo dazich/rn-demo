@@ -22,7 +22,7 @@ export default class Home extends Component {
 	};
 
 	_gotoWeb = () => {
-		this.props.navigation.navigate('Web', {uri: 'http://192.168.1.7:3000/user'});
+		this.props.navigation.navigate('Web', {uri: 'http://192.168.1.7:3000/order'});
 	}
 	render() {
 		return (

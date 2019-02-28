@@ -11,7 +11,18 @@ export default class MyWeb extends Component {
 
 	onMessage = (msg) => {
 		// window.ReactNativeWebView.postMessage(string)
-		this.props.navigation.setParams({title: msg})
+		console.warn(JSON.parse(msg));
+		const {type, data} = JSON.parse(msg);
+		switch (type) {
+			case 'title':
+				this.props.navigation.setParams({title: data});
+				break;
+			case 'login':
+				this.props.navigation.navigate('Login');
+				break;
+			default:
+				break;
+		}
 	}
 	
 	render() {

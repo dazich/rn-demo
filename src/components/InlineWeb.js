@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { APP_NAME } from "../config";
+import HeaderTitle from "./HeaderTitle";
 
 export default class MyWeb extends Component {
 	static navigationOptions = ({ navigation }) => {
 		return {
-			title: navigation.getParam('title', APP_NAME),
+			headerTitle: (
+				<HeaderTitle title={navigation.getParam('title', APP_NAME)} />
+			),
+			headerRight: <View />
 		};
 	};
 

@@ -5,10 +5,13 @@ import {
 	Toast,
 } from '@ant-design/react-native';
 import { createFetch, to, login } from '../utils';
+import HeaderTitle from "../components/HeaderTitle";
 
 export default class User extends Component {
 	static navigationOptions = {
-		title: 'User'
+		headerTitle: (
+			<HeaderTitle title="用户中心"/>
+		),
 	}
 
 	constructor(props) {

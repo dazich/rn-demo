@@ -5,6 +5,8 @@ import {
 	Toast,
 	Button
 } from '@ant-design/react-native';
+import HeaderTitle from "../components/HeaderTitle";
+import {APP_NAME} from "../config";
 
 const instructions = Platform.select({
 	ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -17,7 +19,10 @@ export default class Home extends Component {
 	static navigationOptions = ({ navigation }) => {
 		const { params } = navigation.state;
 		return {
-			title: params ? params.otherParam : 'Home',
+			headerTitle: (
+				<HeaderTitle title={params ? params.otherParam : APP_NAME} />
+			),
+			// headerRight: <View/>
 		};
 	};
 

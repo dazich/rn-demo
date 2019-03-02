@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Image, TouchableOpacity, Linking } from 'react-native';
+import { Platform, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 import {
 	Toast,
 } from '@ant-design/react-native';
@@ -40,11 +40,24 @@ export default class User extends Component {
 		this.props.navigation.push('Web', {uri});
 	}
 
+	_login = () => this.props.navigation.navigate('Login');
+
+	_logout = async () => {
+		const url = '/api/login/logout';
+		const [err, res] = await to(createFetch(url).then(r => r.data));
+		if (err || +res.code !== 0) {
+			Toast.fail((err && err.message) || res.message || '网络异常');
+			return;
+		}
+
+		Toast.success('退出成功');
+		this.query();
+	}
 
 	render() {
 		let { list, user_info } = this.state;
 		return (
-			<View style={styles.container}>
+			<ScrollView style={styles.container}>
 				<View style={styles.header}>
 					<View style={styles.user_info}>
 						<View style={styles.portrait}>
@@ -53,7 +66,7 @@ export default class User extends Component {
 						<Text
 							style={`${user_info.user_phone ? styles.user_phone : styles.login_btn}`}
 							onPress={() => {
-								!user_info.user_phone && login();
+								!user_info.user_phone && this._login();
 							}}
 						>
 							{user_info.user_phone || '立即登录'}
@@ -68,7 +81,16 @@ export default class User extends Component {
 						</View>
 					</TouchableOpacity>
 				))}
-			</View>
+				{
+					user_info.user_phone ? (
+						<TouchableOpacity onPress={() => this._logout()}>
+							<View style={{...styles.row, marginTop: 10}} >
+								<Text style={styles.title}>退出登录</Text>
+							</View>
+						</TouchableOpacity>
+					) : null
+				}
+			</ScrollView>
 		);
 	}
 }

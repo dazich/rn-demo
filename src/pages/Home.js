@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, ScrollView} from 'react-native';
 import {
 	Toast,
 	Button
@@ -27,11 +27,11 @@ export default class Home extends Component {
 	};
 
 	_gotoWeb = () => {
-		this.props.navigation.navigate('Web', {uri: 'http://192.168.1.7:3000/order'});
+		this.props.navigation.navigate('Web', {uri: 'http://120.78.170.195:5000/order'});
 	}
 	render() {
 		return (
-			<View style={styles.container}>
+			<ScrollView style={styles.container}>
 				<Text style={styles.welcome}>Welcome to React Native!</Text>
 				<Text style={styles.instructions}>To get started, edit App.js</Text>
 				<Text style={styles.instructions}>{instructions}</Text>
@@ -40,7 +40,7 @@ export default class Home extends Component {
 					title="Go to User"
 					onPress={this._gotoWeb}
 				>Test</Button>
-			</View>
+			</ScrollView>
 		);
 	}
 }

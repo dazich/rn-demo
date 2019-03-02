@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Image, TouchableOpacity, Linking } from 'react-native';
+import { Platform, StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { Toast, Flex } from '@ant-design/react-native';
 import { createFetch, to, login } from '../utils';
 import { THEME } from "../config";
@@ -51,7 +51,7 @@ export default class User extends Component {
 	render() {
 		let { list, user_info } = this.state;
 		return (
-			<View style={styles.container}>
+			<ScrollView style={styles.container}>
 				<View style={styles.header}>
 					<View style={styles.user_info}>
 						<View style={styles.portrait}>
@@ -73,7 +73,7 @@ export default class User extends Component {
 						</Flex>
 					</TouchableOpacity>
 				))}
-			</View>
+			</ScrollView>
 		);
 	}
 }

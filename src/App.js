@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, Text } from 'react-native';
 import { Provider } from '@ant-design/react-native';
 import { createBottomTabNavigator, createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import { THEME } from './config';
@@ -10,12 +10,32 @@ import Login from './pages/Login';
 import Web from './components/InlineWeb';
 
 import IconHome from './img/home.png';
+import IconHomeSelected from './img/home_1.png';
 import IconUser from './img/user.png';
+import IconUserSelected from './img/user_1.png';
+import IconVerify from './img/verify.png';
+import IconVerifySelected from './img/verify_1.png';
 
 const tabIconList = {
-	'Home': IconHome,
-	'User': IconUser
-}
+	Home: {
+		0: IconHome,
+		1: IconHomeSelected,
+	},
+	User: {
+		0: IconUser,
+		1: IconUserSelected,
+	},
+	Verify: {
+		0: IconVerify,
+		1: IconVerifySelected,
+	},
+};
+
+const tabName = {
+	Home: '首页',
+	User: '我的',
+	Verify: '认证',
+};
 
 const defaultNavigationOptions = {
 	headerStyle: {
@@ -77,13 +97,22 @@ const TabNavigator = createBottomTabNavigator(
 		defaultNavigationOptions: ({ navigation }) => ({
 			tabBarIcon: ({ focused, horizontal, tintColor }) => {
 				const { routeName } = navigation.state;
+				const status = focused ? 1 : 0;
+				// console.warn(`${routeName}::${status}`)
 				// You can return any component that you like here!
-				return <Image source={tabIconList[routeName]} style={{width: 30, height: 30}}/>;
+				return <Image source={tabIconList[routeName][status]} style={{width: 40, height: 40}}/>;
 			},
+			tabBarLabel: () => {
+				const { routeName } = navigation.state;
+				return <Text style={{textAlign: 'center'}}>{tabName[routeName]}</Text>;
+			}
 		}),
 		tabBarOptions: {
 			activeTintColor: THEME.COLOR,
 			inactiveTintColor: 'gray',
+			style: {
+				height: 66,
+			}
 		},
 		initialRouteName: "Home"
 	}

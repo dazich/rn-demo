@@ -1,7 +1,7 @@
 const ENV = 'dev';
 const APP_NAME = '搞起来';
 const THEME = {
-	COLOR: '#abcedf',
+	COLOR: '#6b52ae',
 }; //
 
 //test-api.imcjbt.com  localhost:3200

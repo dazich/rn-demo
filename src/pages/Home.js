@@ -1,9 +1,11 @@
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, ScrollView} from 'react-native';
-import {Slider, Button, Carousel, Flex} from '@ant-design/react-native';
+import {Platform, StyleSheet, Text, View, ScrollView, Button} from 'react-native';
+import {Slider, Carousel, Flex, Toast} from '@ant-design/react-native';
 import HeaderTitle from "../components/HeaderTitle";
 import {APP_NAME} from "../config";
+import to from "../utils/to";
+import createFetch from "../utils/createFetch";
 
 const instructions = Platform.select({
 	ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -27,6 +29,16 @@ export default class Home extends Component {
 
 	_gotoWeb = () => {
 		this.props.navigation.navigate('Web', {uri: 'http://120.78.170.195:5000/order'});
+	}
+
+	_getCode = async () => {
+        const url = 'v1/sms/getvcode';
+        const [err, res] = await to(createFetch.post(url, {type: 1, phone: 18202729129}).then(r => r.data));
+        console.warn(res)
+        if (err || +res.code !== 0) {
+            Toast.fail((err && err.message) || res.message || '网络异常');
+            return;
+        }
 	}
 
 	_onLoanNumChange = (e) => {
@@ -81,7 +93,7 @@ export default class Home extends Component {
 				<Button
 					type="warning"
 					title="Go to User"
-					onPress={this._gotoWeb}
+					onPress={this._getCode}
 				>Test</Button>
 			</ScrollView>
 		);

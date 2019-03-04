@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, ScrollView} from 'react-native';
-import {Slider, Button, Carousel} from '@ant-design/react-native';
+import {Slider, Button, Carousel, Flex} from '@ant-design/react-native';
 import HeaderTitle from "../components/HeaderTitle";
 import {APP_NAME} from "../config";
 
@@ -37,16 +37,6 @@ export default class Home extends Component {
 		const { min=500, max=1000, loanNum, disabled } = this.state;
 		return (
 			<ScrollView style={styles.container}>
-				<Text>{loanNum}</Text>
-				<Slider
-					min={min}
-					max={max}
-					value={loanNum}
-					defaultValue={max}
-					step={50}
-					onChange={this._onLoanNumChange}
-					disabled={disabled}
-				/>
 				<Carousel
 					style={styles.wrapper}
 					selectedIndex={1}
@@ -68,6 +58,24 @@ export default class Home extends Component {
 						<Text>Carousel 2</Text>
 					</View>
 				</Carousel>
+				
+				<Flex direction="column" justify="center" style={{marginTop: 20}}>
+					<Text style={{fontSize: 40}}>{loanNum || max}</Text>
+					<Text>数目</Text>
+				</Flex>
+				<Flex justify="between">
+					<Text>{min}</Text>
+					<Text>{max}</Text>
+				</Flex>
+				<Slider
+					min={min}
+					max={max}
+					value={loanNum}
+					defaultValue={max}
+					step={50}
+					onChange={this._onLoanNumChange}
+					disabled={disabled}
+				/>
 				<Text style={styles.instructions}>To get started, edit App.js</Text>
 				<Text style={styles.instructions}>{instructions}</Text>
 				<Button

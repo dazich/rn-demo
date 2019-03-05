@@ -5,6 +5,7 @@ const THEME = {
 }; //
 
 //test-api.imcjbt.com  localhost:3200
+// http://120.78.170.195:3000/
 const DEV_API = 'http://test-api.imcjbt.com/';
 // TODO
 const API = 'http://test-api.imcjbt.com/';

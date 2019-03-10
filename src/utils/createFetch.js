@@ -17,8 +17,8 @@ createFetch.interceptors.request.use(async config => {
     const options = { ...config };
     // TODO sessionid?
     if (options.method && config.method.toUpperCase() === 'POST') {
-        options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-        options.data = queryString.stringify(config.data);
+        options.headers['Content-Type'] = 'application/json';
+        // options.data = queryString.stringify(config.data);
     }
     return options;
 });

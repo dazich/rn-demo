@@ -39,10 +39,10 @@ export default class Home extends Component {
 			Toast.info('请输入手机号');
 			return;
 		}
-		// if (quickLogin && !code) {
-		// 	Toast.info('请输入验证码');
-		// 	return;
-		// }
+		if (!code) {
+			Toast.info('请输入验证码');
+			return;
+		}
 		//
 		// if (!quickLogin && !password) {
 		// 	Toast.info('请输入密码');
@@ -51,18 +51,20 @@ export default class Home extends Component {
 		
 		const key = Toast.loading('登录中...', 0);
 		const [err, res] = await to(
-			createFetch.post('/v1/sms/getvcode', { phone, type: 1 }).then(r => r.data),
+			createFetch.post('/v1/sms/verifyVCode', { phone, type: 1, code }).then(r => r.data),
 		);
 
 		console.warn(res)
 
 		Portal.remove(key);
-		if (err || +res.code !== 0) {
-			Toast.fail((err && err.message) || res.message || '登录失败');
+
+		const {resp_header, data} = res;
+		if (err || +resp_header.code !== 0) {
+			Toast.fail((err && err.msg) || resp_header.msg || '登录失败');
 			return;
 		}
 		
-		Toast.info('登录成功', 3, () => navigate('Home'));
+		// Toast.info('登录成功', 3, () => navigate('Home'));
 	}
 	_gotoWeb = () => {
 		this.props.navigation.push('Web');
@@ -74,6 +76,7 @@ export default class Home extends Component {
 				<WingBlank>
 					<InputItem
 						clear
+						maxLength={11}
 						value={phone}
 						onChange={value => {
 							this.setState({

@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, ScrollView, Button} from 'react-native';
-import {Slider, Carousel, Flex, Toast} from '@ant-design/react-native';
+import {Platform, StyleSheet, Text, View, ScrollView} from 'react-native';
+import {Slider, Carousel, Flex, Toast, Button} from '@ant-design/react-native';
 import HeaderTitle from "../components/HeaderTitle";
 import {APP_NAME} from "../config";
 import to from "../utils/to";
@@ -25,16 +25,32 @@ export default class Home extends Component {
 		};
 	};
 
-	state = {};
+
+    constructor(props) {
+        super(props);
+        this.state = {};
+
+        try { this._getPageData() } catch {}
+    }
+
+    _getPageData = async () => {
+        const url = 'v1/util/getBanner';
+        const [err, res] = await to(createFetch.post(url, {}).then(r => r.data));
+        console.warn(url, res);
+        if (err || +res.code !== 0) {
+            Toast.fail((err && err.message) || res.message || '网络异常');
+            return;
+        }
+	}
 
 	_gotoWeb = () => {
-		this.props.navigation.navigate('Web', {uri: 'http://120.78.170.195:5000/order'});
+		this.props.navigation.navigate('Login', {uri: 'http://120.78.170.195:5000/order'});
 	}
 
 	_getCode = async () => {
         const url = 'v1/sms/getvcode';
-        const [err, res] = await to(createFetch.post(url, {type: 1, phone: 18202729129}).then(r => r.data));
-        console.warn(res)
+        const [err, res] = await to(createFetch.post(url, {type: 1, phone: "18202729129"}).then(r => r.data));
+        console.warn(1, res);
         if (err || +res.code !== 0) {
             Toast.fail((err && err.message) || res.message || '网络异常');
             return;
@@ -92,8 +108,7 @@ export default class Home extends Component {
 				<Text style={styles.instructions}>{instructions}</Text>
 				<Button
 					type="warning"
-					title="Go to User"
-					onPress={this._getCode}
+					onPress={this._gotoWeb}
 				>Test</Button>
 			</ScrollView>
 		);

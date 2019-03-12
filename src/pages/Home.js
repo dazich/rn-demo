@@ -115,15 +115,16 @@ export default class Home extends Component {
 					disabled={disabled}
 				/>
 				<Text style={styles.instructions}>To get started, edit App.js</Text>
-				<Text style={styles.instructions}>{instructions}</Text>
 				<Button
 					type="warning"
 					onPress={this._gotoWeb}
 				>Login</Button>
+				<Text style={styles.instructions}></Text>
 				<Button
 					type="warning"
 					onPress={this._getCode}
 				>getcode</Button>
+				<Text style={styles.instructions}></Text>
 				<Button
 					type="warning"
 					onPress={this._logout}

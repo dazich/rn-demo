@@ -25,10 +25,6 @@ createFetch.interceptors.request.use(async config => {
 
 createFetch.interceptors.response.use(response => {
     const { code } = response.data;
-    if (code === -2) {
-        login();
-        return;
-    }
     // response.json = () => response.data;
 
     if (code !== 0) {

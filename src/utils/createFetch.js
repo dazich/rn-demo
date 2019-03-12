@@ -25,12 +25,16 @@ createFetch.interceptors.request.use(async config => {
 
 createFetch.interceptors.response.use(response => {
     const { code } = response.data;
-    if (code == -2) {
+    if (code === -2) {
         login();
+        return;
     }
-    response.json = () => response.data;
+    // response.json = () => response.data;
 
-    return Promise.resolve(response);
+    if (code !== 0) {
+	    return Promise.reject(response.data);
+    }
+    return Promise.resolve(response.data);
 });
 
 export default createFetch;

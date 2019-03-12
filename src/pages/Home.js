@@ -30,7 +30,7 @@ export default class Home extends Component {
         super(props);
         this.state = {};
 
-        try { this._getPageData() } catch {}
+        // try { this._getPageData() } catch {}
     }
 
     _getPageData = async () => {
@@ -44,17 +44,27 @@ export default class Home extends Component {
 	}
 
 	_gotoWeb = () => {
-		this.props.navigation.navigate('Login', {uri: 'http://120.78.170.195:5000/order'});
+		this.props.navigation.navigate('Login', {uri: 'http://10.31.41.7:3000/user'});
 	}
 
 	_getCode = async () => {
-        const url = 'v1/sms/getvcode';
-        const [err, res] = await to(createFetch.post(url, {type: 1, phone: "18202729129"}).then(r => r.data));
-        console.warn(1, res);
-        if (err || +res.code !== 0) {
-            Toast.fail((err && err.message) || res.message || '网络异常');
+        const url = '/api/login/getPhoneCode';
+        const [err, res] = await to(createFetch.post(url, {type: 1, phone: "18202729129"}));
+        if (err) {
+            Toast.info(err.message || '网络异常');
             return;
         }
+        Toast.success('发送成功');
+	}
+	
+	_logout = async () => {
+		const url = '/api/login/logout';
+		const [err, res] = await to(createFetch.post(url, {type: 1, phone: "18202729129"}));
+		if (err) {
+			Toast.info(err.message || '网络异常');
+			return;
+		}
+		Toast.success('发送成功');
 	}
 
 	_onLoanNumChange = (e) => {
@@ -109,7 +119,15 @@ export default class Home extends Component {
 				<Button
 					type="warning"
 					onPress={this._gotoWeb}
-				>Test</Button>
+				>Login</Button>
+				<Button
+					type="warning"
+					onPress={this._getCode}
+				>getcode</Button>
+				<Button
+					type="warning"
+					onPress={this._logout}
+				>Logout</Button>
 			</ScrollView>
 		);
 	}

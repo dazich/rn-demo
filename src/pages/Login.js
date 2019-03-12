@@ -35,7 +35,6 @@ export default class Home extends Component {
 		if (lock) return;
 		
 		if (!phone) {
-			console.warn(quickLogin, phone, code)
 			Toast.info('请输入手机号');
 			return;
 		}
@@ -43,28 +42,21 @@ export default class Home extends Component {
 			Toast.info('请输入验证码');
 			return;
 		}
-		//
-		// if (!quickLogin && !password) {
-		// 	Toast.info('请输入密码');
-		// 	return;
-		// }
 		
 		const key = Toast.loading('登录中...', 0);
 		const [err, res] = await to(
-			createFetch.post('/v1/sms/verifyVCode', { phone, type: 1, code }).then(r => r.data),
+			createFetch.post('/api/login/byCode', { phone, type: 1, code })
 		);
 
-		console.warn(res)
-
+		console.warn(err, res);
 		Portal.remove(key);
 
-		const {resp_header, data} = res;
-		if (err || +resp_header.code !== 0) {
-			Toast.fail((err && err.msg) || resp_header.msg || '登录失败');
+		if (err) {
+			Toast.fail(err.message || '登录失败');
 			return;
 		}
 		
-		// Toast.info('登录成功', 3, () => navigate('Home'));
+		Toast.success('登录成功', 3, () => navigate('Home'));
 	}
 	_gotoWeb = () => {
 		this.props.navigation.push('Web');

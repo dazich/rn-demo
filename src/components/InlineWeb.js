@@ -30,18 +30,24 @@ export default class MyWeb extends Component {
 		}
 	}
 	
+	
 	render() {
 		const { navigation } = this.props;
 		const uri = navigation.getParam('uri');
+		
+		const injectedData = `
+			document.cookie = "testtoken=dazi";
+		`;
 		
 		return (
 			<WebView
 				onMessage={event => this.onMessage(event.nativeEvent.data)}
 				onError={error => console.log(error)}
-				cacheEnabled={false}
+				cacheEnabled={true}
 				originWhitelist={['*']}
 				javaScriptEnabled={true}
 				source={{uri}}
+				injectedJavaScript={injectedData}
 			/>
 		);
 	}

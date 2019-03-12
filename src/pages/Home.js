@@ -59,12 +59,12 @@ export default class Home extends Component {
 	
 	_logout = async () => {
 		const url = '/api/login/logout';
-		const [err, res] = await to(createFetch.post(url, {type: 1, phone: "18202729129"}));
+		const [err, res] = await to(createFetch(url));
 		if (err) {
 			Toast.info(err.message || '网络异常');
 			return;
 		}
-		Toast.success('发送成功');
+		Toast.success('退出成功');
 	}
 
 	_onLoanNumChange = (e) => {
